@@ -65,7 +65,7 @@ case "$usbchgdisabled" in
         echo "$usbchgdisabled" > /sys/module/smb137b/parameters/disabled
 	;;
         "msm8960")
-        echo "$usbchgdisabled" > /sys/module/pm8921_charger/parameters/disabled
+        echo "$usbchgdisabled" > /sys/module/pm8921_charger_magnus/parameters/disabled
 	;;
     esac
 esac
@@ -76,7 +76,7 @@ case "$usbcurrentlimit" in
     * )
     case $target in
         "msm8960")
-        echo "$usbcurrentlimit" > /sys/module/pm8921_charger/parameters/usb_max_current
+        echo "$usbcurrentlimit" > /sys/module/pm8921_charger_magnus/parameters/usb_max_current
 	;;
     esac
 esac

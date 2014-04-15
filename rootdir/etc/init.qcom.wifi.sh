@@ -146,6 +146,28 @@ case "$target" in
         ln -s /system/lib/modules/prima/prima_wlan.ko /system/lib/modules/wlan.ko
         ln -s /system/lib/modules/prima/cfg80211.ko /system/lib/modules/cfg80211.ko
 
+        # thkim_wifi , 20121128, add separate ini file -->
+        if [ -f $/data/misc/wifi/WCNSS_qcom_cfg.ini ] ; then
+          rm /data/misc/wifi/WCNSS_qcom_cfg.ini
+        fi        
+	cp /system/etc/firmware/wlan/prima/WCNSS_qcom_cfg_orgi.ini /data/misc/wifi/WCNSS_qcom_cfg.ini
+	chmod 0660 /data/misc/wifi/WCNSS_qcom_cfg.ini
+	chown system.wifi /data/misc/wifi/WCNSS_qcom_cfg.ini
+	sync        
+	# thkim_wifi , 20121128, add separate ini file <--
+	
+	# Pantech ++, 20120409, Pantech only, ymlee_p11019, to config & test TRP TIS
+        if [ -f /data/misc/wifi/WCNSS_DONE_TRPTRS.ini ] ; then
+	rm /data/misc/wifi/WCNSS_qcom_cfg.ini
+           rm /data/misc/wifi/WCNSS_DONE_TRPTRS.ini
+           sync
+        fi              
+	# Pantech --, 20120409
+
+	# Pantech - 20120423 , enable SSR
+	echo 3 > /sys/module/subsystem_restart/parameters/restart_level 
+	echo 1 > /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr
+
         # The property below is used in Qcom SDK for softap to determine
         # the wifi driver config file
         setprop wlan.driver.config /data/misc/wifi/WCNSS_qcom_cfg.ini

@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2012, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012, Code Aurora Forum. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -8,7 +8,7 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of The Linux Foundation nor
+#     * Neither the name of Code Aurora nor
 #       the names of its contributors may be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
@@ -24,30 +24,11 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-
-# PANTECH LS1 fixed for modem image load fail on booting.
-# temp back // PATH=/sbin:/system/sbin:/system/bin:/system/xbin
-# temp back // export PATH
+# 
 
 # This should be the first command
-# remount system as read-write.
-# lsi@ls1.130110 : [prohibit remount] remount is prohibited as the KDDI req.
-#mount -o rw,remount,barrier=1 /system
-
-# Run modem link script
-/system/bin/sh /system/etc/init.qcom.modem_links.sh
-
-# Run mdm link script
-/system/bin/sh /system/etc/init.qcom.mdm_links.sh
-
-# Run thermal script
-/system/bin/sh /system/etc/init.qcom.thermald_conf.sh
 
 # Run wifi script
-# PANTECH LS1 core fixed for modem image load fail on booting.	
-# bellow line move to init.qcom.post_fs_pantech.sh
-#temp back
 /system/bin/sh /system/etc/init.qcom.wifi.sh
 
 # This should be the last command

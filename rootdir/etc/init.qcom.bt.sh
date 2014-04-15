@@ -66,6 +66,7 @@ config_bt ()
   target=`getprop ro.board.platform`
   soc_hwid=`cat /sys/devices/system/soc/soc0/id`
   btsoc=`getprop qcom.bluetooth.soc`
+  btsysname=`getprop ro.product.sys_name`
 
   case $baseband in
     "apq")
@@ -108,16 +109,18 @@ config_bt ()
         setprop ro.qualcomm.bluetooth.pbap true
         setprop ro.qualcomm.bluetooth.ftp true
         setprop ro.qualcomm.bluetooth.nap true
-        setprop ro.qualcomm.bluetooth.sap true
-        setprop ro.qualcomm.bluetooth.dun true
-        case $btsoc in
-          "ath3k")
-              setprop ro.qualcomm.bluetooth.map false
-              ;;
-          *)
+	# +++ [P12523] BT_SYS setting about unsupported profile
+        setprop ro.qualcomm.bluetooth.sap false
+        setprop ro.qualcomm.bluetooth.dun false
+        case $btsysname in
+          "STARQ" | "VEGAPVW")
               setprop ro.qualcomm.bluetooth.map true
               ;;
+          *)
+              setprop ro.qualcomm.bluetooth.map false
+              ;;
         esac
+	# --- [P12523] BT_SYS setting about unsupported profile
         ;;
     *)
         setprop ro.qualcomm.bluetooth.opp true
